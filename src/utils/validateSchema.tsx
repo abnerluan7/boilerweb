@@ -1,4 +1,4 @@
-import { Schema, ValidationError } from 'yup'
+import { Schema, ValidationError } from "yup";
 
 /**
  * Sets property creating parents
@@ -7,23 +7,23 @@ import { Schema, ValidationError } from 'yup'
  * @prop {string} value The value of the property
  */
 function setProperty(obj: any, path: string, value: object | string | number) {
-  var parts = path.split('.')
+  var parts = path.split(".");
 
   for (var i = 0; i < parts.length; i++) {
-    var p = parts[i]
+    var p = parts[i];
 
     if (obj[p] === undefined) {
       if (i === parts.length - 1) {
-        obj[p] = value
+        obj[p] = value;
       } else {
-        obj[p] = {}
+        obj[p] = {};
       }
     }
 
-    obj = obj[p]
+    obj = obj[p];
   }
 
-  return obj
+  return obj;
 }
 
 /**
@@ -31,23 +31,22 @@ function setProperty(obj: any, path: string, value: object | string | number) {
  * @prop {object} values The json object
  * @prop {object} schema The yup schema
  */
-function validateSchema(values: object, schema: Schema<any>) {
-  const getErrorsFromValidationError = (validationError: ValidationError) => {
-    let errors = {}
-
+function validateSchema<T>(values: object, schema: Schema<any>): T | null {
+  const getErrorsFromValidationError = (
+    validationError: ValidationError
+  ): T | null => {
+    let errors = {};
     validationError.inner.forEach((error: ValidationError) => {
-      setProperty(errors, error.path, error.message)
-    })
-
-    return errors
-  }
-
+      setProperty(errors, error.path, error.message);
+    });
+    return errors as T;
+  };
   try {
-    schema.validateSync(values, { abortEarly: false })
-    return null
+    schema.validateSync(values, { abortEarly: false });
+    return null;
   } catch (error) {
-    return getErrorsFromValidationError(error)
+    return getErrorsFromValidationError(error);
   }
 }
 
-export default validateSchema
+export default validateSchema;

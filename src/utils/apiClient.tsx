@@ -1,35 +1,38 @@
-async function apiClient(endpoint: RequestInfo, { body, ...customConfig }: RequestInit = {}) {
-  const headers = { 'Content-Type': 'application/json' }
+async function apiClient(
+  endpoint: RequestInfo,
+  { body, ...customConfig }: RequestInit = {}
+) {
+  const headers = { "Content-Type": "application/json" };
 
   const config: RequestInit = {
-    method: body ? 'POST' : 'GET',
+    method: body ? "POST" : "GET",
     ...customConfig,
     headers: {
       ...headers,
       ...customConfig.headers,
     },
-  }
+  };
 
   if (body) {
-    config.body = JSON.stringify(body)
+    config.body = JSON.stringify(body);
   }
 
-  const API_URL = process.env.REACT_APP_API_URL
+  const API_URL = process.env.REACT_APP_API_URL;
 
   return fetch(`${API_URL}/${endpoint}`, config).then(async (response) => {
     if (response.status === 401) {
       // unauthorized
-      return
+      return;
     }
 
-    const data = await response.json()
+    const data = await response.json();
 
     if (response.ok) {
-      return data
+      return data;
     } else {
-      return Promise.reject(data)
+      return Promise.reject(data);
     }
-  })
+  });
 }
 
-export default apiClient
+export default apiClient;
