@@ -4,14 +4,15 @@ import validateSchema from "../../utils/validateSchema";
 import signupValidator from "../../utils/validators/signupValidator";
 import { useMutation } from "react-query";
 import { signUp } from "../../services/userService";
+import { Link } from "react-router-dom";
 
 import { Container, Input, Button, Title, Error } from "./styles";
 import User from "../../types/User";
 interface Error {
-  email: "";
-  password: "";
-  firstname: "";
-  lastname: "";
+  email?: string | null;
+  password?: string | null;
+  firstname?: string | null;
+  lastname?: string | null;
 }
 interface Form {
   email?: string;
@@ -50,22 +51,14 @@ function SignUp() {
     onError: (error) => {
       console.log("this error occurred", error);
     },
-    onSuccess: (data) => {
+    onSuccess: (data: User) => {
       console.log(data);
-      login(data as User);
+      login(data);
     },
   });
 
-  const { form, errors } = state;
-
   const handleSubmit = () => {
-    const signup = {
-      email: form?.email,
-      password: form?.password,
-      firstname: form?.firstname,
-      lastname: form?.lastname,
-    };
-    const errorsSchema = validateSchema<Error>(signup, signupValidator);
+    const errorsSchema = validateSchema<Error>(state.form, signupValidator);
 
     if (errorsSchema) {
       setState({
@@ -73,14 +66,18 @@ function SignUp() {
       });
       console.log(errorsSchema);
     } else {
-      mutate(signup);
+      mutate({
+        email: state.form?.email,
+        password: state.form?.password,
+        firstname: state.form?.firstname,
+        lastname: state.form?.lastname,
+      });
     }
   };
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
-    const name = event.target.name;
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setState({
-      form: { ...form, [name]: newValue },
+      form: { ...state.form, [e.target.name]: e.target.value },
+      errors: { ...state.errors, [e.target.name]: null },
     });
   };
 
@@ -92,38 +89,39 @@ function SignUp() {
           type="text"
           name="firstname"
           placeholder="Informe seu nome"
-          value={form?.firstname}
+          value={state.form?.firstname}
           onChange={handleInputChange}
         />
-        <Error>{errors?.firstname}</Error>
+        <Error>{state.errors?.firstname}</Error>
         <Input
           type="text"
           name="lastname"
           placeholder="Informe seu sobrenome"
-          value={form?.lastname}
+          value={state.form?.lastname}
           onChange={handleInputChange}
         />
-        <Error>{errors?.lastname}</Error>
+        <Error>{state.errors?.lastname}</Error>
         <Input
           type="email"
           name="email"
           placeholder="Informe seu email"
-          value={form?.email}
+          value={state.form?.email}
           onChange={handleInputChange}
         />
-        <Error>{errors?.email}</Error>
+        <Error>{state.errors?.email}</Error>
         <Input
           type="password"
           name="password"
           placeholder="Informe sua senha"
-          value={form?.password}
+          value={state.form?.password}
           onChange={handleInputChange}
         />
-        <Error>{errors?.password}</Error>
+        <Error>{state.errors?.password}</Error>
 
         <Button onClick={handleSubmit} disabled={mutation.status === "loading"}>
           Entrar
         </Button>
+        <Link to="/login">Logar</Link>
         <Button primary>Logar</Button>
       </Container>
     </>

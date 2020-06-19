@@ -4,12 +4,13 @@ import validateSchema from "../../utils/validateSchema";
 import loginValidator from "../../utils/validators/loginValidator";
 import { useMutation } from "react-query";
 import { signIn } from "../../services/userService";
+import { Link } from "react-router-dom";
 
 import { Container, Input, Button, Title, Error } from "./styles";
 import User from "../../types/User";
 interface Error {
-  email: "";
-  password: "";
+  email?: string | null;
+  password?: string | null;
 }
 interface Form {
   email?: string;
@@ -44,38 +45,30 @@ function Login() {
     onError: (error) => {
       console.log("this error occurred", error);
     },
-    onSuccess: (data) => {
-      login(data as User);
+    onSuccess: (data: User) => {
+      login(data);
     },
   });
 
-  const { form, errors } = state;
-
   const handleSubmit = () => {
-    const login = {
-      email: form?.email,
-      password: form?.password,
-    };
-    setState({
-      errors: undefined,
-    });
-    const errorsSchema = validateSchema<Error>(login, loginValidator);
+    const errorsSchema = validateSchema<Error>(state.form, loginValidator);
 
     if (errorsSchema) {
       setState({
         errors: errorsSchema,
       });
     } else {
-      mutate(login);
+      mutate({ email: state.form?.email, password: state.form?.password });
     }
   };
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
-    const name = event.target.name;
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setState({
-      form: { ...form, [name]: newValue },
+      form: { ...state.form, [e.target.name]: e.target.value },
+      errors: { ...state.errors, [e.target.name]: null },
     });
   };
+
   return (
     <>
       <Container>
@@ -84,22 +77,23 @@ function Login() {
           type="email"
           name="email"
           placeholder="Informe seu email"
-          value={form?.email}
+          value={state.form?.email}
           onChange={handleInputChange}
         />
-        <Error>{errors?.email}</Error>
+        <Error>{state.errors?.email}</Error>
         <Input
           type="password"
           name="password"
           placeholder="Informe sua senha"
-          value={form?.password}
+          value={state.form?.password}
           onChange={handleInputChange}
         />
-        <Error>{errors?.password}</Error>
+        <Error>{state.errors?.password}</Error>
 
         <Button onClick={handleSubmit} disabled={mutation.status === "loading"}>
           Entrar
         </Button>
+        <Link to="/signup">Cadastrar</Link>
         <Button primary>Cadastrar</Button>
       </Container>
     </>

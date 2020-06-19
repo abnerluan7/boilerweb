@@ -1,6 +1,9 @@
+interface Options extends Omit<RequestInit, "body"> {
+  body?: object;
+}
 async function apiClient(
   endpoint: RequestInfo,
-  { body, ...customConfig }: RequestInit = {}
+  { body, ...customConfig }: Options = {}
 ) {
   const headers = { "Content-Type": "application/json" };
 

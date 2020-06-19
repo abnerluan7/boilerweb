@@ -1,10 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
-import { ReactQueryConfigProvider } from 'react-query'
-import { AuthProvider } from './providers/AuthProvider'
-import { BrowserRouter } from 'react-router-dom'
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import { ReactQueryConfigProvider } from "react-query";
+import { AuthProvider } from "./providers/AuthProvider";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,5 +16,5 @@ ReactDOM.render(
       </ReactQueryConfigProvider>
     </BrowserRouter>
   </React.StrictMode>,
-  document.getElementById('root')
-)
+  document.getElementById("root")
+);

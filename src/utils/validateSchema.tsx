@@ -31,7 +31,10 @@ function setProperty(obj: any, path: string, value: object | string | number) {
  * @prop {object} values The json object
  * @prop {object} schema The yup schema
  */
-function validateSchema<T>(values: object, schema: Schema<any>): T | null {
+function validateSchema<T>(
+  values: object | undefined,
+  schema: Schema<any>
+): T | null {
   const getErrorsFromValidationError = (
     validationError: ValidationError
   ): T | null => {
