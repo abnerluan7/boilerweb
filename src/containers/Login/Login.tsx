@@ -90,11 +90,14 @@ function Login() {
         />
         <Error>{state.errors?.password}</Error>
 
-        <Button onClick={handleSubmit} disabled={mutation.status === "loading"}>
+        <Button
+          primary
+          onClick={handleSubmit}
+          disabled={mutation.status === "loading"}
+        >
           Entrar
         </Button>
         <Link to="/signup">Cadastrar</Link>
-        <Button primary>Cadastrar</Button>
       </Container>
     </>
   );

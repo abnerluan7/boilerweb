@@ -122,7 +122,6 @@ function SignUp() {
           Entrar
         </Button>
         <Link to="/login">Logar</Link>
-        <Button primary>Logar</Button>
       </Container>
     </>
   );
