@@ -1,24 +1,20 @@
 import React from "react";
-import { useAuth } from "../../providers/AuthProvider";
-import validateSchema from "../../utils/validateSchema";
-import signupValidator from "../../utils/validators/signupValidator";
+import { useAuth } from "../../../providers/AuthProvider";
+import validateSchema from "../../../utils/validateSchema";
+import {loginValidator} from "../../../utils/validators/authValidator";
 import { useMutation } from "react-query";
-import { signUp } from "../../services/userService";
+import { signIn } from "../../../services/userService";
 import { Link } from "react-router-dom";
 
-import { Container, Input, Button, Title, Error } from "./styles";
-import User from "../../types/User";
+import { Container, Input, Button, Title, Error, Recovery } from "./styles";
+import User from "../../../types/User";
 interface Error {
   email?: string | null;
   password?: string | null;
-  firstname?: string | null;
-  lastname?: string | null;
 }
 interface Form {
   email?: string;
   password?: string;
-  firstname?: string;
-  lastname?: string;
 }
 type InitialState = {
   form?: Form;
@@ -28,12 +24,10 @@ const initialState = {
   form: {
     email: "",
     password: "",
-    firstname: "",
-    lastname: "",
   },
 };
 
-function SignUp() {
+function Login() {
   const [state, setState] = React.useReducer(
     (oldValue: InitialState, newValue: InitialState) => ({
       ...oldValue,
@@ -44,7 +38,7 @@ function SignUp() {
 
   const { login } = useAuth();
 
-  const [mutate, mutation] = useMutation(signUp, {
+  const [mutate, mutation] = useMutation(signIn, {
     onMutate: () => {
       console.log("mutation started");
     },
@@ -52,28 +46,22 @@ function SignUp() {
       console.log("this error occurred", error);
     },
     onSuccess: (data: User) => {
-      console.log(data);
       login(data);
     },
   });
 
   const handleSubmit = () => {
-    const errorsSchema = validateSchema<Error>(state.form, signupValidator);
+    const errorsSchema = validateSchema<Error>(state.form, loginValidator);
 
     if (errorsSchema) {
       setState({
         errors: errorsSchema,
       });
-      console.log(errorsSchema);
     } else {
-      mutate({
-        email: state.form?.email,
-        password: state.form?.password,
-        firstname: state.form?.firstname,
-        lastname: state.form?.lastname,
-      });
+      mutate({ email: state.form?.email, password: state.form?.password });
     }
   };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setState({
       form: { ...state.form, [e.target.name]: e.target.value },
@@ -84,23 +72,7 @@ function SignUp() {
   return (
     <>
       <Container>
-        <Title>Seja bem vindo, cadastre-se para continuar </Title>
-        <Input
-          type="text"
-          name="firstname"
-          placeholder="Informe seu nome"
-          value={state.form?.firstname}
-          onChange={handleInputChange}
-        />
-        <Error>{state.errors?.firstname}</Error>
-        <Input
-          type="text"
-          name="lastname"
-          placeholder="Informe seu sobrenome"
-          value={state.form?.lastname}
-          onChange={handleInputChange}
-        />
-        <Error>{state.errors?.lastname}</Error>
+        <Title>Seja bem vindo, faça login para continuar </Title>
         <Input
           type="email"
           name="email"
@@ -116,15 +88,28 @@ function SignUp() {
           value={state.form?.password}
           onChange={handleInputChange}
         />
+        <Link to="/recovery" style={{
+          textDecoration: 'none',
+          textAlign: 'right',
+          alignItems: 'rigth',
+          alignContent: 'rigth',
+          width: '350px'
+        }}>
+          <Recovery>Esqueceu a senha?</Recovery>
+        </Link>
         <Error>{state.errors?.password}</Error>
 
-        <Button onClick={handleSubmit} disabled={mutation.status === "loading"}>
+        <Button
+          primary
+          onClick={handleSubmit}
+          disabled={mutation.status === "loading"}
+        >
           Entrar
         </Button>
-        <Link to="/login">Logar</Link>
+        <Link to="/signup" >Cadastrar</Link>
       </Container>
     </>
   );
 }
 
-export default SignUp;
+export default Login;

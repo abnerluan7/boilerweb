@@ -12,3 +12,11 @@ export function signIn(body: object): Promise<User> {
 export function signUp(body: object): Promise<User> {
   return apiClient("auth/signup/", { body: body });
 }
+
+export function recoveryPassword(body: object): Promise<User> {
+  return apiClient("auth/signin/", { body: body });
+}
+
+export function resetPassword(body: object): Promise<User> {
+  return apiClient("auth/signin/", { body: body });
+}

@@ -31,6 +31,7 @@ export const Button = styled.button`
   color: #fff;
   margin: 10px;
   font-weight: bold;
+  cursor: pointer;
 `;
 
 export const Title = styled.p`
@@ -42,4 +43,9 @@ export const Title = styled.p`
 export const Error = styled.p`
   color: red;
   font-size: 12px;
+`;
+
+export const Recovery = styled.p`
+  color: #9b59b6;
+  font-size: 10px;
 `;
