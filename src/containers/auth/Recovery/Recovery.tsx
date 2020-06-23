@@ -1,5 +1,4 @@
 import React from "react";
-import { useAuth } from "../../../providers/AuthProvider";
 import validateSchema from "../../../utils/validateSchema";
 import {recoveryValidator} from "../../../utils/validators/authValidator";
 import { useMutation } from "react-query";
@@ -24,7 +23,14 @@ const initialState = {
   },
 };
 
-function Recovery() {
+interface HistoryProps {
+  history: any;
+}
+type Props = HistoryProps;
+
+const Recovery = ({
+  history,
+ }: Props) => {
   const [state, setState] = React.useReducer(
     (oldValue: InitialState, newValue: InitialState) => ({
       ...oldValue,
@@ -32,8 +38,6 @@ function Recovery() {
     }),
     initialState
   );
-
-  const { login } = useAuth();
 
   const [mutate, mutation] = useMutation(recoveryPassword, {
     onMutate: () => {
@@ -43,7 +47,7 @@ function Recovery() {
       console.log("this error occurred", error);
     },
     onSuccess: (data: User) => {
-      login(data);
+      history.push('login')
     },
   });
 
@@ -55,7 +59,7 @@ function Recovery() {
         errors: errorsSchema,
       });
     } else {
-      mutate({ email: state.form?.email });
+      mutate( state.form?.email ? state.form?.email : '');
     }
   };
 

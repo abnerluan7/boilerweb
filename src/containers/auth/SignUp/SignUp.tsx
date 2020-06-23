@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "../../../providers/AuthProvider";
+// import { useAuth } from "../../../providers/AuthProvider";
 import validateSchema from "../../../utils/validateSchema";
 import {signupValidator} from "../../../utils/validators/authValidator";
 import { useMutation } from "react-query";
@@ -33,7 +33,14 @@ const initialState = {
   },
 };
 
-function SignUp() {
+interface HistoryProps {
+  history: any;
+}
+type Props = HistoryProps;
+
+const SignUp = ({
+  history,
+ }: Props) => {
   const [state, setState] = React.useReducer(
     (oldValue: InitialState, newValue: InitialState) => ({
       ...oldValue,
@@ -42,7 +49,7 @@ function SignUp() {
     initialState
   );
 
-  const { login } = useAuth();
+  // const { login } = useAuth();
 
   const [mutate, mutation] = useMutation(signUp, {
     onMutate: () => {
@@ -52,8 +59,8 @@ function SignUp() {
       console.log("this error occurred", error);
     },
     onSuccess: (data: User) => {
-      console.log(data);
-      login(data);
+      // login(data);
+      history.push('login')
     },
   });
 
@@ -119,7 +126,7 @@ function SignUp() {
         <Error>{state.errors?.password}</Error>
 
         <Button onClick={handleSubmit} disabled={mutation.status === "loading"}>
-          Entrar
+          Cadastrar
         </Button>
         <Link to="/login">Logar</Link>
       </Container>

@@ -5,7 +5,9 @@ async function apiClient(
   endpoint: RequestInfo,
   { body, ...customConfig }: Options = {}
 ) {
-  const headers = { "Content-Type": "application/json" };
+  const headers = { 
+    "Content-Type": "application/json"
+  };
 
   const config: RequestInit = {
     method: body ? "POST" : "GET",
