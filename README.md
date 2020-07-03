@@ -104,6 +104,14 @@ Na pasta principal do projeto, é possível utilizar os seguintes comandos:
 
 Instala as dependências do projeto.<br />
 
+### `amplify init`
+
+Configura as credenciais do amplify.<br />
+
+### `amplify auth add`
+
+Adiciona o pull de usuários, ver imagem fixada no canal dev-boilerplate<br />
+
 ### `yarn start`
 
 Roda o app em modo de desenvolvimento.<br />
