@@ -19,12 +19,11 @@ Testes - [react-testing-library](https://github.com/testing-library/react-testin
 Rotas da aplicação
 
 ```javascript
-pages/
-      index.js
-      Home.js
-      Admin.js
-      MyProfile.js
-      Dashboard.js
+pages / index.js
+Home.js
+Admin.js
+MyProfile.js
+Dashboard.js
 ```
 
 ### Containers
@@ -32,15 +31,13 @@ pages/
 Componentes principais renderizados pelas rotas
 
 ```javascript
-containers / 
-        Home.js
-        Admin.js
-        Dashboard.js
-        // Containers com sub-páginas podem ser agrupados em pastas
-        MyProfile / 
-            index.js
-            MyProfile.js
-            Details.js
+containers / Home.js
+Admin.js
+Dashboard.js
+// Containers com sub-páginas podem ser agrupados em pastas
+MyProfile / index.js
+MyProfile.js
+Details.js
 ```
 
 ### Componentes
@@ -48,15 +45,12 @@ containers /
 Componentes são separados por pastas, cada pasta contém o componente principal, testes e outras dependências como componentes menores estilizados com styled-components e funções
 
 ```javascript
-components / 
-    header / 
-      index.js
-      Header.js
-      Header.test.js
-    feed / 
-      index.js
-      Feed.js
-      Feed.test.js
+components / header / index.js
+Header.js
+Header.test.js
+feed / index.js
+Feed.js
+Feed.test.js
 ```
 
 ### Providers
@@ -64,16 +58,14 @@ components /
 Contextos globais ficam na pasta principal. Contextos específicos são separados por pastas
 
 ```javascript
-providers /
-  AuthProvider.js
+providers / AuthProvider.js
 ```
 
 ### Hooks
 
 ```javascript
-hooks / 
-  useFolders.js
-  useUsers.js
+hooks / useFolders.js
+useUsers.js
 ```
 
 ### Services
@@ -81,9 +73,8 @@ hooks /
 Um único arquivo de serviço por entidade
 
 ```javascript
-services / 
-  authServices.js
-  productService.js
+services / authServices.js
+productService.js
 ```
 
 ### Utils
@@ -91,9 +82,8 @@ services /
 Qualquer função que possa ser reutilizada
 
 ```javascript
-utils / 
-  floatToCurrency.js
-  dateTimeParser.js
+utils / floatToCurrency.js
+dateTimeParser.js
 ```
 
 ## Build e Deploy
@@ -121,6 +111,11 @@ Abra [http://localhost:3000](http://localhost:3000) para visualizar no navegador
 
 Roda o test runner em modo interativo com watch mode ativo.<br />
 
-### `yarn build`
+### `yarn build:prod`
 
-Builda o app para produção na pasta `build`.<br />
+Builda o app para produção na pasta `build` utilizando o arquivo .env.production. Não gera sourcemaps
+<br />
+
+### `yarn build:test`
+
+Builda o app com sourcemaps para teste na pasta `build` utilizando o arquivo .env.test <br />

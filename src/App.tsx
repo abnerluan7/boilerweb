@@ -7,6 +7,7 @@ const AuthenticatedApp = React.lazy(() => import('./pages/AuthenticatedApp'))
 
 function App() {
   const { user } = useAuth()
+  console.log(process.env.REACT_APP_API_ENV)
 
   // Use React.Suspense to show a loader indicator while lazy routes are imported
   return <React.Suspense fallback={<div></div>}>{user == null ? <UnauthenticatedApp /> : <AuthenticatedApp />}</React.Suspense>
