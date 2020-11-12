@@ -1,16 +1,18 @@
-import React from 'react'
-import { useAuth } from './providers/AuthProvider'
+import React from 'react';
 
-// Remember to always codesplit routes
-const UnauthenticatedApp = React.lazy(() => import('./pages/UnauthenticatedApp'))
-const AuthenticatedApp = React.lazy(() => import('./pages/AuthenticatedApp'))
+import { ThemeProvider } from 'styled-components';
+
+import Home from 'presentation/screens/Home';
+import GlobalStyle from 'presentation/styles/global.styles';
+import theme from 'presentation/styles/theme';
 
 function App() {
-  const { user } = useAuth()
-  console.log(process.env.REACT_APP_API_ENV)
-
-  // Use React.Suspense to show a loader indicator while lazy routes are imported
-  return <React.Suspense fallback={<div></div>}>{user == null ? <UnauthenticatedApp /> : <AuthenticatedApp />}</React.Suspense>
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Home />
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;
