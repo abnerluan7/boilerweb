@@ -1,0 +1,19 @@
+{
+  "common": {
+    "hello": "Olá",
+    "email": "E-mail",
+    "password": "Senha"
+  },
+  "actions": {
+    "enter": "Entrar"
+  },
+  "errors": {
+    "minLength": "Campo deve ter {{length}} caracteres ou mais.",
+    "invalidEmail": "E-mail em formato inválido.",
+    "requiredField": "Campo obrigatório.",
+    "mismatchField": "Campos devem ser iguais.",
+    "accessDenied": "Você não tem permissão para acessar este conteúdo.",
+    "invalidCredentials": "As credenciais informadas são inválidas.",
+    "unexpectedError": "Algum erro inesperado ocorreu, tente novamente em alguns instantes."
+  }
+}

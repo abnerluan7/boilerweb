@@ -1,0 +1,53 @@
+{
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "extends": [
+    "standard-with-typescript",
+    "plugin:react/recommended",
+    "plugin:cypress/recommended"
+  ],
+  "plugins": ["react", "import-helpers", "cypress"],
+  "parserOptions": {
+    "project": "./tsconfig-eslint.json"
+  },
+  "env": {
+    "cypress/globals": true
+  },
+  "rules": {
+    "@typescript-eslint/no-unnecessary-type-assertion": "off",
+    "@typescript-eslint/consistent-type-definitions": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/comma-spacing": "off",
+    "@typescript-eslint/return-await": "off",
+    "@typescript-eslint/no-namespace": "off",
+    "@typescript-eslint/no-redeclare": "off",
+    "@typescript-eslint/camelcase": "off",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react/prop-types": "off",
+    "import/export": "off",
+    "import-helpers/order-imports": [
+      "warn",
+      {
+        "newlinesBetween": "never",
+        "groups": [
+          "/^react/",
+          "module",
+          "/^~/domain/",
+          "/^~/application/",
+          "/^~/infra/",
+          "/^~/main/",
+          "/^~/validation/",
+          "/^~/presentation/",
+          ["parent", "sibling", "index"]
+        ],
+        "alphabetize": { "order": "asc", "ignoreCase": false }
+      }
+    ]
+  }
+}
