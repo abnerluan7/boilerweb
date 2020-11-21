@@ -2,16 +2,15 @@ import { useQuery } from 'react-query'
 import { ResponseError } from '~/domain/common/types'
 import { CachedQuery } from '~/presentation/common/protocols'
 
-export type UseCachedQueryParams<T, R> = {
+export type UseCachedQueryParams<T> = {
   queryKey: string
-  body?: R
   fetcher: () => Promise<T>
 }
 
-export const useCachedQuery = <T = unknown, R = unknown>({
+export const useCachedQuery = <T = unknown>({
   queryKey,
   fetcher
-}: UseCachedQueryParams<T, R>): CachedQuery<T> => {
+}: UseCachedQueryParams<T>): CachedQuery<T> => {
   const { data, error, isFetched, isLoading, isError, isSuccess } = useQuery<
   T,
   ResponseError
