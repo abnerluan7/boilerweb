@@ -3,13 +3,13 @@ import {
   InvalidCredentialsError,
   UnexpectedError
 } from '~/domain/common/exceptions'
+import { Response, ResponseError } from '~/domain/common/types'
 import {
   CombinedPredicated,
   combinedPredicates,
   error,
   success
 } from '~/domain/common/utils'
-import { Response, ResponseError } from '~/domain/models'
 import { HttpResponse, HttpStatusCode } from '~/application/protocols/http'
 
 export class RequestResponse<R> {

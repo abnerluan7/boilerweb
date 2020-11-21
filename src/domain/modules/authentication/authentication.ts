@@ -1,4 +1,5 @@
-import { Response, TokenModel } from '~/domain/models'
+import { Response } from '~/domain/common/types'
+import { TokenModel } from '~/domain/models'
 
 export namespace Authentication {
   export enum Provider {
