@@ -1,3 +1,3 @@
-export * from './spies/storage-spy'
-export * from './spies/http-client-spy'
-export * from './mocks/mock-http-request'
+export * from './spies/storageSpy'
+export * from './spies/httpClientSpy'
+export * from './mocks/mockHttpRequest'

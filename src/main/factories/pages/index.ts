@@ -1,1 +1,1 @@
-export * from './login-page/login-page-factory'
+export * from './loginPage/loginPageFactory'

@@ -1,1 +1,1 @@
-export * from './routes-factory'
+export * from './routesFactory'

@@ -1,2 +1,2 @@
-export * from './get-storage'
-export * from './set-storage'
+export * from './getStorage'
+export * from './setStorage'

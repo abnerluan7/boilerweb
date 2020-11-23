@@ -1,1 +1,1 @@
-export * from './mocks/mock-token-model'
+export * from './mocks/mockTokenModel'

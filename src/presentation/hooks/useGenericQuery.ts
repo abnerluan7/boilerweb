@@ -1,31 +1,31 @@
-import * as React from "react";
-import { useQuery } from "react-query";
-import { getLectures } from "~/application/services/generic/generic";
+import { QueryResult, useQuery } from 'react-query'
+import { getLectures } from '~/application/services/generic/generic'
 
 type Config = {
-  onError?: (/*parâmetro de erro*/) => void;
-  onSuccess?: (data: Response) => void;
-};
+  onError?: (/* parâmetro de erro */) => void
+  onSuccess?: (data: Response) => void
+}
 
-function useGenericQuery(
+function useGenericQuery (
   queryKey: string,
   handleFn: () => Promise<Response>,
   config?: Config
-) {
+): QueryResult<Response, unknown> {
   const query = useQuery(queryKey, getLectures, {
     ...config,
     onError: (error) => {
       // tratamento de erro genérico
       // dispara quando erro
-      return config.onError(/*objecto erro tratado*/);
+      console.log(error)
+      return config.onError(/* objecto erro tratado */)
     },
     onSuccess: (data) => {
       // dispara quando sucesso
-      return config.onSuccess(data);
-    },
-  });
+      return config.onSuccess(data)
+    }
+  })
 
-  return query;
+  return query
 }
 
-export default useGenericQuery;
+export default useGenericQuery

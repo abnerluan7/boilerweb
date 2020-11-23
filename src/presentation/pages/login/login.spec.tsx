@@ -8,7 +8,7 @@ import {
   mockSetToken,
   ValidationStub
 } from '~/presentation/tests'
-import { populateField } from '~/presentation/tests/helpers/form-helper'
+import { populateField } from '~/presentation/tests/helpers/formHelper'
 import LoginPage from './login'
 
 type SutTypes = {

@@ -1,1 +1,1 @@
-export * from './authentication/email-authentication'
+export * from './authentication/emailAuthentication'

@@ -1,1 +1,1 @@
-export * from './local-storage-adapter/local-storage-adapter-factory'
+export * from './localStorageAdapter/localStorageAdapterFactory'

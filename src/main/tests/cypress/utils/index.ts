@@ -1,2 +1,2 @@
-export * from './http-mocks'
-export * from './form-helpers'
+export * from './httpMocks'
+export * from './formHelpers'

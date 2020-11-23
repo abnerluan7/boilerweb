@@ -1,1 +1,1 @@
-export * from './layouts-factory'
+export * from './layoutsFactory'
