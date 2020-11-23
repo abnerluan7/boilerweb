@@ -1,5 +1,5 @@
+const Dotenv = require('dotenv-webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { DefinePlugin } = require('webpack')
 const { merge } = require('webpack-merge')
 const common = require('./webpack.common')
 
@@ -25,8 +25,10 @@ module.exports = merge(common, {
     hot: true
   },
   plugins: [
-    new DefinePlugin({
-      'process.env.API_URL': JSON.stringify('http://0.0.0.0:3001')
+    new Dotenv({
+      path: './.env',
+      safe: true,
+      systemvars: true
     }),
     new HtmlWebpackPlugin({
       template: './template.dev.html'

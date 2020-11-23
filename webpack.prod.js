@@ -1,9 +1,10 @@
 const BrotliPlugin = require('brotli-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
-const { optimize, DefinePlugin } = require('webpack')
+const { optimize } = require('webpack')
 const { merge } = require('webpack-merge')
 const common = require('./webpack.common')
 
@@ -36,8 +37,10 @@ module.exports = merge(common, {
     minimizer: [new TerserPlugin()]
   },
   plugins: [
-    new DefinePlugin({
-      'process.env.API_URL': JSON.stringify('https://testapi.1education.info')
+    new Dotenv({
+      path: './.env',
+      safe: true,
+      systemvars: true
     }),
     new BrotliPlugin({
       asset: '[path].br[query]',
